@@ -6,13 +6,6 @@ from discord.ext import commands
 from member_commands import ServerMembers
 from discord_slash.utils.manage_components import create_button, create_actionrow
 from discord_slash.model import ButtonStyle
-
-buttons = [
-    create_button(
-        style=ButtonStyle.green,
-        label="A Green Button"
-    ),
-]
 from servermembers import *
 from db import bind_engine
 
@@ -24,8 +17,6 @@ bot = commands.Bot(command_prefix=commands.when_mentioned_or('s.'), intents=inte
 bot.remove_command('help')
 engine = create_engine("sqlite+pysqlite:///sqlite3", echo=True, future=True, connect_args={"check_same_thread": False})
 
-action_row = create_actionrow(*buttons)
-
 
 @bot.event
 async def on_ready():
@@ -34,10 +25,10 @@ async def on_ready():
 
 @bot.command(aliases = ['h'])
 async def help(ctx):
-    await ctx.send("My Message", components=[action_row])
     embedVar = Embed(title = "SLHS Bot")
     embedVar.add_field(name = "Commands", value = "\n".join([str(command) for command in bot.commands]))
     await ctx.send(embed = embedVar)
 
 bot.add_cog(ServerMembers(bot))
 bot.run(TOKEN)
+
