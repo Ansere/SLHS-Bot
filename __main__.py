@@ -4,8 +4,6 @@ import os
 import discord
 from discord.ext import commands
 from member_commands import ServerMembers
-from discord_slash.utils.manage_components import create_button, create_actionrow
-from discord_slash.model import ButtonStyle
 from servermembers import *
 from db import bind_engine
 
