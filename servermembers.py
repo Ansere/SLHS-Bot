@@ -38,12 +38,12 @@ class ServerMember(base):
         self.description = description
 
 
-def load_members(bot):
+def load_members(bot, guild_id):
     global list_servermembers
     list_current_members = session.query(ServerMember)
     list_new_members = []
     try:
-        guild = bot.get_guild(748995290006028399)
+        guild = bot.get_guild(guild_id)
     except:
         print("Unable to fetch SLHS guild. Not in server?")
     for member in guild.members:

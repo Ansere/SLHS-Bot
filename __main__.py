@@ -10,6 +10,7 @@ from db import bind_engine
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
+GUILD_ID = os.getenv('GUILD_ID')
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix=commands.when_mentioned_or('s.'), intents=intents)
 bot.remove_command('help')
@@ -19,7 +20,7 @@ engine = create_engine("sqlite+pysqlite:///sqlite3", echo=True, future=True, con
 @bot.event
 async def on_ready():
     bind_engine(engine)
-    load_members(bot)
+    load_members(bot, GUILD_ID)
 
 @bot.command(aliases = ['h'])
 async def help(ctx):
